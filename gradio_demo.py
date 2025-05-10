@@ -13,7 +13,7 @@ import torch
 from PIL import Image
 
 yolo_model = get_yolo_model(model_path='weights/icon_detect/model.pt')
-caption_model_processor = get_caption_model_processor(model_name="florence2", model_name_or_path="weights/icon_caption_florence")
+caption_model_processor = get_caption_model_processor(model_name="florence2", model_name_or_path="Florence-2-base")
 # caption_model_processor = get_caption_model_processor(model_name="blip2", model_name_or_path="weights/icon_caption_blip2")
 
 MARKDOWN = """
@@ -92,5 +92,5 @@ with gr.Blocks() as demo:
         outputs=[image_output_component, text_output_component]
     )
 
-# demo.launch(debug=False, show_error=True, share=True)
-demo.launch(share=True, server_port=7861, server_name='0.0.0.0')
+# 修改launch参数：关闭遥感(share=False)，使用8800端口，启用debug和显示错误
+demo.launch(share=False, server_port=8800, server_name='0.0.0.0', debug=True, show_error=True)
