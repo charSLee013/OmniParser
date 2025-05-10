@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  omniparser-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: omniparser-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # 挂载模型目录，这样不需要将模型放入镜像中
+      - ./weights:/app/weights
+    environment:
+      - TZ=Asia/Shanghai
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu] 
