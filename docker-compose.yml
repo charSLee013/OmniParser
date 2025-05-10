@@ -5,10 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: omniparser-api
+    container_name: omniparser-gradio
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8800:8800"
     volumes:
       # 挂载模型目录，这样不需要将模型放入镜像中
       - ./weights:/app/weights
@@ -20,4 +20,5 @@ services:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu] 
+              capabilities: [gpu]
+    command: python gradio_demo.py 
